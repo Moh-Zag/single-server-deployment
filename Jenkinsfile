@@ -32,6 +32,8 @@ pipeline {
                         unzip -o /home/sysuser/myapp.zip -d /home/sysuser/app/
                         source app/venv/bin/activate
                         cd /home/sysuser/app/
+                        pwd
+                        ls -al
                         pip install -r requirements.txt
                         sudo systemctl restart flaskapp.service
 EOF
