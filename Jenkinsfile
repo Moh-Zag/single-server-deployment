@@ -35,7 +35,7 @@ pipeline {
                         pwd
                         ls -al
                         pip install -r requirements.txt
-                        sudo systemctl restart flaskapp.service
+                        systemctl restart flaskapp.service
 EOF
                     '''
                 }
