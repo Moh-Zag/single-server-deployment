@@ -35,15 +35,13 @@ pipeline {
                         pwd
                         ls -al
                         pip install -r requirements.txt
-                        systemctl restart flaskapp.service
 EOF
                     '''
                 }
+            withCredentials([usernamePassword(credentialsId: 'prod-server-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                sh 'echo ${PASSWORD} | sudo systemctl restart flaskapp.service' }
             }
         }
-       
-        
-       
-        
+
     }
 }
