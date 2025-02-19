@@ -39,7 +39,7 @@ EOF
                     '''
                 }
             withCredentials([usernamePassword(credentialsId: 'prod-server-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh 'echo ${PASSWORD} | sudo systemctl restart flaskapp.service' }
+                sh 'echo ${PASSWORD} | sudo -S systemctl restart flaskapp.service' }
             }
         }
 
