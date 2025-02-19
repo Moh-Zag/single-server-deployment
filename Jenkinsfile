@@ -25,13 +25,13 @@ pipeline {
 
         stage('Deploy to Prod') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
+                withCredentials([sshUserPrivateKey(credentialsId: 'prod-server-ssh-key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                     sh '''
-                    scp -i $MY_SSH_KEY -o StrictHostKeyChecking=no myapp.zip  ${username}@${SERVER_IP}:/home/ec2-user/
+                    scp -i $MY_SSH_KEY -o StrictHostKeyChecking=no myapp.zip  ${username}@${SERVER_IP}:/home/sysuser/
                     ssh -i $MY_SSH_KEY -o StrictHostKeyChecking=no ${username}@${SERVER_IP} << EOF
-                        unzip -o /home/ec2-user/myapp.zip -d /home/ec2-user/app/
+                        unzip -o /home/sysuser/myapp.zip -d /home/sysuser/app/
                         source app/venv/bin/activate
-                        cd /home/ec2-user/app/
+                        cd /home/sysuser/app/
                         pip install -r requirements.txt
                         sudo systemctl restart flaskapp.service
 EOF
